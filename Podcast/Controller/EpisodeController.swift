@@ -72,7 +72,7 @@ extension EpisodeController {
         
         let window = UIApplication.shared.keyWindow
         
-        let playerDetailView = Bundle.main.loadNibNamed("PlayerDetailsView", owner: self)?.first as! PlayerDetailsView
+        let playerDetailView = PlayerDetailsView.initFromNib()
     
         // 플레이어 디테일 뷰에 선택한 셀의 에피소드  주입
         playerDetailView.episode = episode

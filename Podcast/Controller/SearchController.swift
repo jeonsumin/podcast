@@ -31,7 +31,7 @@ class SearchController: UITableViewController {
         setupSearchBar()
         setupTableView()
         
-        searchBar(searchController.searchBar, textDidChange: "컬투쇼")
+        searchBar(searchController.searchBar, textDidChange: "뉴스")
     }
     
     

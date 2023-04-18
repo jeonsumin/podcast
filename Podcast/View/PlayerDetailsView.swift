@@ -158,6 +158,10 @@ class PlayerDetailsView:UIView{
         }
     }
     
+    static func initFromNib() -> PlayerDetailsView {
+        return Bundle.main.loadNibNamed("PlayerDetailsView", owner: self)?.first as! PlayerDetailsView
+    }
+    
     deinit{
         print("playerDetail View memory being re")
     }
