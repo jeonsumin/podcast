@@ -68,18 +68,23 @@ extension EpisodeController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let episode = self.episodes[indexPath.row]
         
-        print("Trying to play Episode", episode.title)
+        let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as! MainTabBarController
+        mainTabBarController.maximizePlayerDetails(episode: episode)
         
-        let window = UIApplication.shared.keyWindow
-        
-        let playerDetailView = PlayerDetailsView.initFromNib()
-    
-        // 플레이어 디테일 뷰에 선택한 셀의 에피소드  주입
-        playerDetailView.episode = episode
-        
-        //플레이어 디에틸 뷰의 프레임을 현재 뷰 프레임에 추가
-        playerDetailView.frame = self.view.frame
-        window?.addSubview(playerDetailView)
+//        let episode = self.episodes[indexPath.row]
+//
+//        print("Trying to play Episode", episode.title)
+//
+//        let window = UIApplication.shared.keyWindow
+//
+//        let playerDetailView = PlayerDetailsView.initFromNib()
+//
+//        // 플레이어 디테일 뷰에 선택한 셀의 에피소드  주입
+//        playerDetailView.episode = episode
+//
+//        //플레이어 디에틸 뷰의 프레임을 현재 뷰 프레임에 추가
+//        playerDetailView.frame = self.view.frame
+//        window?.addSubview(playerDetailView)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

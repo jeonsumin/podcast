@@ -35,6 +35,8 @@ class PlayerDetailsView:UIView{
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximize)))
+        
         observePlayerCurrentTime()
         
         let time = CMTime(value: 1, timescale: 3)
@@ -116,7 +118,10 @@ class PlayerDetailsView:UIView{
     
     // 팝업 닫는 버튼
     @IBAction func handleDismiss(_ sender: Any) {
-        self.removeFromSuperview()
+//        self.removeFromSuperview()
+       let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
+        mainTabBarController?.minimizedPlayerDetails()
+        
     }
     
     
@@ -168,6 +173,15 @@ class PlayerDetailsView:UIView{
     
     
     fileprivate let shrunkenTransfrom = CGAffineTransform(scaleX: 0.7, y: 0.7)
+    
+    
+    //MARK: - Function
+    
+    @objc func handleTapMaximize(){
+        let mainTabBarControlelr = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
+        mainTabBarControlelr?.maximizePlayerDetails(episode: nil)
+    }
+    
     
     fileprivate func updateCurrentTimeSlider(){
         let currentTimeSeconds = CMTimeGetSeconds(player.currentTime())
