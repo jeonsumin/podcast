@@ -28,6 +28,8 @@ class SearchController: UITableViewController {
         
         setupSearchBar()
         setupTableView()
+        
+        searchBar(searchController.searchBar, textDidChange: "컬투쇼")
     }
     
     
@@ -41,6 +43,7 @@ class SearchController: UITableViewController {
     }
     
     func setupSearchBar(){
+        
         //다른 뷰를 표시할때 해당 뷰가 표시되는지 여부 판단
         self.definesPresentationContext = true
         navigationItem.searchController = searchController
