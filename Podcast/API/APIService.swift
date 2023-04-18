@@ -20,30 +20,29 @@ class APIService {
         
         let secureFeedUrl = feedUrl.contains("https") ? feedUrl : feedUrl.replacingOccurrences(of: "http", with: "https")
         guard let url = URL(string: secureFeedUrl) else { return }
-        let parser = FeedParser(URL: url)
+     
         
-        
-        parser.parseAsync(result: { result in
-            switch result {
-            case .success(let feed):
-                switch feed {
-                case let .rss(feed):
+        DispatchQueue.global(qos: .background).async {
+            print("Before parser")
+            let parser = FeedParser(URL: url)
+            print("after parser")
+            parser.parseAsync(result: { result in
+                switch result {
+                case .success(let feed):
+                    switch feed {
+                    case let .rss(feed):
+                        completionHandler(feed.toEpisodes())
+                        break
+                    default :
+                        print("Found a feed ... ")
+                    }
                     
-                    completionHandler(feed.toEpisodes())
-                    
-//                    self.episodes = feed.toEpisodes()
-//                    DispatchQueue.main.async {
-//                        self.tableView.reloadData()
-//                    }
-                    break
-                default :
-                    print("Found a feed ... ")
+                case .failure(let error):
+                    print("Failed to parse feed : ",error)
                 }
-                
-            case .failure(let error):
-                print("Failed to parse feed : ",error)
-            }
-        })
+            })
+        }
+        
     }
     
     func fetchPodcast(searchText: String, completionHandler: @escaping ([Podcast]) -> ()){

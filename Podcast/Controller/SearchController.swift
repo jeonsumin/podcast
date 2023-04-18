@@ -22,6 +22,8 @@ class SearchController: UITableViewController {
     // UISearchController
     let searchController = UISearchController(searchResultsController: nil)
     
+    var timer: Timer?
+    
     //MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,9 +102,12 @@ extension SearchController{
 //MARK: - SearchBar Delegate
 extension SearchController: UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        APIService.shared.fetchPodcast(searchText: searchText) { snapshot in
-            self.podcasts = snapshot
-            self.tableView.reloadData()
-        }
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { timer in
+            APIService.shared.fetchPodcast(searchText: searchText) { snapshot in
+                self.podcasts = snapshot
+                self.tableView.reloadData()
+            }
+        })   
     }
 }

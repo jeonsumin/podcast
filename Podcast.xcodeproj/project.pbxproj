@@ -152,8 +152,8 @@
 				DE0C452D29EBC78800642D20 /* EpisodeCell.xib */,
 				DE0C452B29EBC78800642D20 /* PodcastCell.swift */,
 				DE0C452C29EBC78800642D20 /* PodcastCell.xib */,
-				DE0C454129EBD70800642D20 /* PlayerDetailsView.xib */,
 				DE0C454329EBD93200642D20 /* PlayerDetailsView.swift */,
+				DE0C454129EBD70800642D20 /* PlayerDetailsView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";

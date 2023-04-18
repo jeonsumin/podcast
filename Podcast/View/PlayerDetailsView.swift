@@ -26,6 +26,7 @@ class PlayerDetailsView:UIView{
     
     let player: AVPlayer = {
         let avPlayer = AVPlayer()
+        // 재생이 끊기는 것을 최소화하기 위해 플레이어가 자동적으로 재생을 지연해야하는지 여부
         avPlayer.automaticallyWaitsToMinimizeStalling = false
         return avPlayer
     }()
@@ -39,8 +40,9 @@ class PlayerDetailsView:UIView{
         let time = CMTime(value: 1, timescale: 3)
         let times = [NSValue(time: time)]
         
-        player.addBoundaryTimeObserver(forTimes: times, queue: .main) {
-            self.enlargeEpisodeImageView()
+        
+        player.addBoundaryTimeObserver(forTimes: times, queue: .main) { [weak self] in
+            self?.enlargeEpisodeImageView()
         }
     }
     
@@ -145,15 +147,19 @@ class PlayerDetailsView:UIView{
     fileprivate func observePlayerCurrentTime() {
         let interval = CMTimeMake(value: 1, timescale: 2)
         player.addPeriodicTimeObserver(forInterval: interval,
-                                       queue: .main) { time in
+                                       queue: .main) {[weak self] time in
             
-            self.currentTimeLabel.text = time.toDisplayString()
+            self?.currentTimeLabel.text = time.toDisplayString()
 
-            let durationTime = self.player.currentItem?.duration
-            self.durationTimeLabel.text = durationTime?.toDisplayString()
+            let durationTime = self?.player.currentItem?.duration
+            self?.durationTimeLabel.text = durationTime?.toDisplayString()
             
-            self.updateCurrentTimeSlider()
+            self?.updateCurrentTimeSlider()
         }
+    }
+    
+    deinit{
+        print("playerDetail View memory being re")
     }
     
     

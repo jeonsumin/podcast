@@ -54,6 +54,17 @@ class EpisodeController:UITableViewController {
 //MARK: - TableView Delegate And DataSource
 extension EpisodeController {
     
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let activityIndicatorView = UIActivityIndicatorView()
+        activityIndicatorView.color = .darkGray
+        activityIndicatorView.startAnimating()
+        return activityIndicatorView
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return episodes.isEmpty ? 200 : 0
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let episode = self.episodes[indexPath.row]
         
@@ -62,9 +73,11 @@ extension EpisodeController {
         let window = UIApplication.shared.keyWindow
         
         let playerDetailView = Bundle.main.loadNibNamed("PlayerDetailsView", owner: self)?.first as! PlayerDetailsView
-        
+    
+        // 플레이어 디테일 뷰에 선택한 셀의 에피소드  주입
         playerDetailView.episode = episode
         
+        //플레이어 디에틸 뷰의 프레임을 현재 뷰 프레임에 추가
         playerDetailView.frame = self.view.frame
         window?.addSubview(playerDetailView)
     }
