@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="M3l-HJ-3iE">
-                    <rect key="frame" x="24" y="47" width="327" height="707"/>
+                    <rect key="frame" x="24" y="50" width="327" height="704"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AJG-0t-B0M">
                             <rect key="frame" x="0.0" y="0.0" width="327" height="44"/>
@@ -37,7 +38,7 @@
                                 <constraint firstAttribute="width" secondItem="qTe-xl-gzo" secondAttribute="height" id="xoo-Dh-J4b"/>
                             </constraints>
                         </imageView>
-                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="dEM-Wi-af1">
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="dEM-Wi-af1">
                             <rect key="frame" x="-2" y="381" width="331" height="37"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="qEp-xa-eVv"/>
@@ -66,7 +67,7 @@
                             </constraints>
                         </stackView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Episode Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gU-fC-9dr">
-                            <rect key="frame" x="0.0" y="449" width="327" height="36.666666666666686"/>
+                            <rect key="frame" x="0.0" y="449" width="327" height="33.666666666666686"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="fe5-NE-q6D"/>
                             </constraints>
@@ -75,7 +76,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTo-EB-ATB">
-                            <rect key="frame" x="0.0" y="490.66666666666663" width="327" height="20"/>
+                            <rect key="frame" x="0.0" y="487.66666666666663" width="327" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="QVe-C4-X7p"/>
                             </constraints>
@@ -84,7 +85,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TKR-Qr-pOQ">
-                            <rect key="frame" x="0.0" y="515.66666666666663" width="327" height="154"/>
+                            <rect key="frame" x="0.0" y="512.66666666666663" width="327" height="154"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YPQ-2L-JS1">
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="154"/>
@@ -138,7 +139,7 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BMW-JT-6jS">
-                            <rect key="frame" x="0.0" y="674.66666666666663" width="327" height="32.333333333333371"/>
+                            <rect key="frame" x="0.0" y="671.66666666666663" width="327" height="32.333333333333371"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="muted_volume" translatesAutoresizingMaskIntoConstraints="NO" id="JI5-S7-bBD">
                                     <rect key="frame" x="0.0" y="0.0" width="34" height="32.333333333333336"/>
@@ -171,6 +172,9 @@
             </constraints>
             <connections>
                 <outlet property="authorLabel" destination="tTo-EB-ATB" id="rsJ-N1-CQb"/>
+                <outlet property="currentTimeLabel" destination="hy8-YB-ape" id="3Bt-jz-oVl"/>
+                <outlet property="currentTimeSlider" destination="dEM-Wi-af1" id="Mve-v3-Td1"/>
+                <outlet property="durationTimeLabel" destination="rya-Ef-q2I" id="yER-Pc-Iph"/>
                 <outlet property="episodeImageView" destination="qTe-xl-gzo" id="dUQ-B0-AHa"/>
                 <outlet property="playPauseButton" destination="RN5-vA-AXW" id="05M-6j-nK8"/>
                 <outlet property="titleLabel" destination="0gU-fC-9dr" id="izK-Mi-pib"/>

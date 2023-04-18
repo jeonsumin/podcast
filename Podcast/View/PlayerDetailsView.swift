@@ -34,17 +34,22 @@ class PlayerDetailsView:UIView{
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        observePlayerCurrentTime()
+        
         let time = CMTime(value: 1, timescale: 3)
         let times = [NSValue(time: time)]
         
         player.addBoundaryTimeObserver(forTimes: times, queue: .main) {
-            print("episode started playing ")
             self.enlargeEpisodeImageView()
         }
     }
     
     //MARK: -IBOutlet
     //재생 정지 버튼
+    @IBOutlet weak var currentTimeSlider: UISlider!
+    @IBOutlet weak var currentTimeLabel: UILabel!
+    @IBOutlet weak var durationTimeLabel: UILabel!
+    
     @IBOutlet weak var playPauseButton: UIButton! {
         didSet {
             playPauseButton.setImage(UIImage(named: "pause"), for: .normal)
@@ -100,7 +105,32 @@ class PlayerDetailsView:UIView{
         }
     }
     
+    
+    fileprivate func observePlayerCurrentTime() {
+        let interval = CMTimeMake(value: 1, timescale: 2)
+        player.addPeriodicTimeObserver(forInterval: interval,
+                                       queue: .main) { time in
+            
+            self.currentTimeLabel.text = time.toDisplayString()
+
+            let durationTime = self.player.currentItem?.duration
+            self.durationTimeLabel.text = durationTime?.toDisplayString()
+            
+            self.updateCurrentTimeSlider()
+        }
+    }
+    
+    
     fileprivate let shrunkenTransfrom = CGAffineTransform(scaleX: 0.7, y: 0.7)
+    
+    fileprivate func updateCurrentTimeSlider(){
+        let currentTimeSeconds = CMTimeGetSeconds(player.currentTime())
+        
+        let durationSeconds = CMTimeGetSeconds(player.currentItem?.duration ?? CMTimeMake(value: 1, timescale: 1))
+        let percentage = currentTimeSeconds / durationSeconds
+        
+        self.currentTimeSlider.value = Float(percentage)
+    }
     
     fileprivate func enlargeEpisodeImageView(){
         UIView.animate(withDuration: 0.75,
