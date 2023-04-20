@@ -14,12 +14,16 @@ class PlayerDetailsView:UIView{
     //MARK: - Properties
     var episode: Episode! {
         didSet{
+            miniTitleLabel.text = episode.title
+            
+            
             titleLabel.text = episode.title
             authorLabel.text = episode.author
             guard let url = URL(string: episode.imageUrl ?? "" ) else {return }
          
             playerEpisode()
             episodeImageView.sd_setImage(with: url)
+            miniEpisodeImageView.sd_setImage(with: url)
         }
     }
     
@@ -50,6 +54,20 @@ class PlayerDetailsView:UIView{
     
     //MARK: -IBOutlet
     
+    // mini Outlat
+    @IBOutlet weak var miniEpisodeImageView: UIImageView!
+    @IBOutlet weak var miniTitleLabel: UILabel!
+    @IBOutlet weak var miniPlayPauseButton: UIButton!{
+        didSet{
+            miniPlayPauseButton.addTarget(self, action: #selector(hanldePlayPause), for: .touchUpInside)
+        }
+    }
+    @IBOutlet weak var miniFastForwardButton: UIButton!
+    
+    
+    // maxView Outlat
+    @IBOutlet weak var miniPlayerView: UIView!
+    @IBOutlet weak var maximizedStackView: UIStackView!
     
     @IBOutlet weak var currentTimeSlider: UISlider!
     @IBOutlet weak var currentTimeLabel: UILabel!
@@ -140,10 +158,12 @@ class PlayerDetailsView:UIView{
         if player.timeControlStatus == .paused {
             player.play()
             playPauseButton.setImage(UIImage(named: "pause"), for: .normal)
+            miniPlayPauseButton.setImage(UIImage(named: "pause"), for: .normal)
             enlargeEpisodeImageView()
         }else {
             player.pause()
             playPauseButton.setImage(UIImage(named: "play"), for: .normal)
+            miniPlayPauseButton.setImage(UIImage(named: "play"), for: .normal)
             shrinkEpisodeImageView()
         }
     }

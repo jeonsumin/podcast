@@ -45,6 +45,8 @@ class MainTabBarController:UITabBarController{
             self.view.layoutIfNeeded()
             self.tabBar.transform = .identity
             
+            self.playerDetailsView.maximizedStackView.alpha = 0
+            self.playerDetailsView.miniPlayerView.alpha = 1
         }
     }
     
@@ -67,6 +69,9 @@ class MainTabBarController:UITabBarController{
                        options: .curveEaseOut) {
             self.view.layoutIfNeeded()
             self.tabBar.transform = CGAffineTransform(translationX: 0, y: 100)
+            
+            self.playerDetailsView.maximizedStackView.alpha = 1
+            self.playerDetailsView.miniPlayerView.alpha = 0
         }
     }
     
