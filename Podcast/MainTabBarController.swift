@@ -43,7 +43,7 @@ class MainTabBarController:UITabBarController{
                        initialSpringVelocity: 1,
                        options: .curveEaseOut) {
             self.view.layoutIfNeeded()
-            self.tabBar.transform = .identity
+            self.view.exchangeSubview(at: 1, withSubviewAt: 2)
             
             self.playerDetailsView.maximizedStackView.alpha = 0
             self.playerDetailsView.miniPlayerView.alpha = 1
@@ -68,7 +68,7 @@ class MainTabBarController:UITabBarController{
                        initialSpringVelocity: 1,
                        options: .curveEaseOut) {
             self.view.layoutIfNeeded()
-            self.tabBar.transform = CGAffineTransform(translationX: 0, y: 100)
+            self.view.exchangeSubview(at: 2, withSubviewAt: 1)
             
             self.playerDetailsView.maximizedStackView.alpha = 1
             self.playerDetailsView.miniPlayerView.alpha = 0
