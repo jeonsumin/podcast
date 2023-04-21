@@ -35,13 +35,16 @@ class PlayerDetailsView:UIView{
         return avPlayer
     }()
     
+    var panGestrue: UIPanGestureRecognizer!
+    
     //MARK: - Init
     override func awakeFromNib() {
         super.awakeFromNib()
         
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximize)))
         
-        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
+        panGestrue = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        addGestureRecognizer(panGestrue)
         
         observePlayerCurrentTime()
         
@@ -141,6 +144,7 @@ class PlayerDetailsView:UIView{
 //        self.removeFromSuperview()
        let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
         mainTabBarController?.minimizedPlayerDetails()
+        panGestrue.isEnabled = true
         
     }
     
@@ -202,6 +206,7 @@ class PlayerDetailsView:UIView{
     @objc func handleTapMaximize(){
         let mainTabBarControlelr = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
         mainTabBarControlelr?.maximizePlayerDetails(episode: nil)
+        panGestrue.isEnabled = false
     }
     
     @objc func handlePan(gesture: UIPanGestureRecognizer){
@@ -209,26 +214,46 @@ class PlayerDetailsView:UIView{
         if gesture.state == .began {
             NSLog("Begen")
         }else if gesture.state == .changed{
-            let translation = gesture.translation(in: self.superview)
-            self.transform = CGAffineTransform(translationX: 0, y: translation.y)
+            handlPanChanged(gesture: gesture)
             
-            self.miniPlayerView.alpha = 1 + translation.y / 200
-            self.maximizedStackView.alpha = -translation.y / 200
         }else if gesture.state == .ended{
-            UIView.animate(withDuration: 0.5,
-                           delay: 0,
-                           usingSpringWithDamping: 0.7,
-                           initialSpringVelocity: 1,
-                           options: .curveEaseOut,
-                           animations: {
-                self.transform = .identity
-                self.miniPlayerView.alpha = 1
-                self.maximizedStackView.alpha = 0
-                            })
+            handlePanEnded(gesture: gesture)
         }
     }
     
+    func handlPanChanged(gesture: UIPanGestureRecognizer){
+        let translation = gesture.translation(in: self.superview)
+        self.transform = CGAffineTransform(translationX: 0, y: translation.y)
+        
+        self.miniPlayerView.alpha = 1 + translation.y / 200
+        self.maximizedStackView.alpha = -translation.y / 200
+    }
     
+    func handlePanEnded(gesture: UIPanGestureRecognizer){
+        let translation = gesture.translation(in: self.superview)
+        let velocity = gesture.velocity(in: self.superview)
+        
+        
+        UIView.animate(withDuration: 0.5,
+                       delay: 0,
+                       usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 1,
+                       options: .curveEaseOut,
+                       animations: {
+            self.transform = .identity
+            
+            if translation.y < -200 || velocity.y < -500 {
+                let mainTabBarController =
+                UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
+                mainTabBarController?.maximizePlayerDetails(episode: nil)
+                gesture.isEnabled = false
+                
+            }else{
+                self.miniPlayerView.alpha = 1
+                self.maximizedStackView.alpha = 0
+            }
+        })
+    }
     
     fileprivate func updateCurrentTimeSlider(){
         let currentTimeSeconds = CMTimeGetSeconds(player.currentTime())
