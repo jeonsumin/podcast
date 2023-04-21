@@ -41,6 +41,8 @@ class PlayerDetailsView:UIView{
         
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximize)))
         
+        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
+        
         observePlayerCurrentTime()
         
         let time = CMTime(value: 1, timescale: 3)
@@ -201,6 +203,31 @@ class PlayerDetailsView:UIView{
         let mainTabBarControlelr = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController
         mainTabBarControlelr?.maximizePlayerDetails(episode: nil)
     }
+    
+    @objc func handlePan(gesture: UIPanGestureRecognizer){
+        
+        if gesture.state == .began {
+            NSLog("Begen")
+        }else if gesture.state == .changed{
+            let translation = gesture.translation(in: self.superview)
+            self.transform = CGAffineTransform(translationX: 0, y: translation.y)
+            
+            self.miniPlayerView.alpha = 1 + translation.y / 200
+            self.maximizedStackView.alpha = -translation.y / 200
+        }else if gesture.state == .ended{
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           usingSpringWithDamping: 0.7,
+                           initialSpringVelocity: 1,
+                           options: .curveEaseOut,
+                           animations: {
+                self.transform = .identity
+                self.miniPlayerView.alpha = 1
+                self.maximizedStackView.alpha = 0
+                            })
+        }
+    }
+    
     
     
     fileprivate func updateCurrentTimeSlider(){

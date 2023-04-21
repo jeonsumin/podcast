@@ -18,6 +18,13 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J4z-JW-xP1">
                     <rect key="frame" x="0.0" y="50" width="375" height="64"/>
                     <subviews>
+                        <view alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="heA-mw-o3P">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="0.66666666666666663"/>
+                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="CvD-6h-6pH"/>
+                            </constraints>
+                        </view>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Sxo-bz-a9c">
                             <rect key="frame" x="8" y="8" width="359" height="48"/>
                             <subviews>
@@ -56,8 +63,11 @@
                         <constraint firstItem="Sxo-bz-a9c" firstAttribute="top" secondItem="J4z-JW-xP1" secondAttribute="top" constant="8" id="JnF-gq-zng"/>
                         <constraint firstAttribute="height" constant="64" id="NuA-Oz-7n8"/>
                         <constraint firstAttribute="bottom" secondItem="Sxo-bz-a9c" secondAttribute="bottom" constant="8" id="Tyy-0Z-GZs"/>
+                        <constraint firstItem="heA-mw-o3P" firstAttribute="leading" secondItem="J4z-JW-xP1" secondAttribute="leading" id="Ybj-FK-hmh"/>
                         <constraint firstAttribute="trailing" secondItem="Sxo-bz-a9c" secondAttribute="trailing" constant="8" id="fwj-y2-F8p"/>
                         <constraint firstItem="Sxo-bz-a9c" firstAttribute="leading" secondItem="J4z-JW-xP1" secondAttribute="leading" constant="8" id="kZX-8o-Ji9"/>
+                        <constraint firstAttribute="trailing" secondItem="heA-mw-o3P" secondAttribute="trailing" id="kyP-bi-yIM"/>
+                        <constraint firstItem="heA-mw-o3P" firstAttribute="top" secondItem="J4z-JW-xP1" secondAttribute="top" id="waQ-69-jXS"/>
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="M3l-HJ-3iE">
